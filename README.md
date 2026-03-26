@@ -176,6 +176,7 @@ rtk go test                     # Go tests (NDJSON, -90%)
 rtk cargo test                  # Cargo tests (-90%)
 rtk rake test                   # Ruby minitest (-90%)
 rtk rspec                       # RSpec tests (JSON, -60%+)
+rtk phpunit                     # PHPUnit tests (failures only, -65%+)
 ```
 
 ### Build & Lint
@@ -408,6 +409,7 @@ Plugin in `openclaw/` directory. Uses `before_tool_call` hook, delegates to `rtk
 | `rake test` / `rails test` | `rtk rake test` |
 | `rspec` / `bundle exec rspec` | `rtk rspec` |
 | `rubocop` / `bundle exec rubocop` | `rtk rubocop` |
+| `phpunit` / `vendor/bin/phpunit` / `bin/phpunit` | `rtk phpunit` |
 | `bundle install/update` | `rtk bundle ...` |
 | `docker ps/images/logs` | `rtk docker ...` |
 | `kubectl get/logs` | `rtk kubectl ...` |

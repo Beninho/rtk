@@ -40,6 +40,7 @@ mod next_cmd;
 mod npm_cmd;
 mod parser;
 mod permissions;
+mod phpunit_cmd;
 mod pip_cmd;
 mod playwright_cmd;
 mod pnpm_cmd;
@@ -722,6 +723,12 @@ enum Commands {
     Hook {
         #[command(subcommand)]
         command: HookCommands,
+    },
+
+    /// Run PHPUnit tests with compact output (PHP)
+    Phpunit {
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
+        args: Vec<String>,
     },
 }
 
@@ -2244,6 +2251,10 @@ fn main() -> Result<()> {
                 verify_cmd::run(None, require_all)?;
             }
         }
+
+        Commands::Phpunit { args } => {
+            phpunit_cmd::run(&args, cli.verbose)?;
+        }
     }
 
     Ok(())
@@ -2303,6 +2314,7 @@ fn is_operational_command(cmd: &Commands) -> bool {
             | Commands::Go { .. }
             | Commands::GolangciLint { .. }
             | Commands::Gt { .. }
+            | Commands::Phpunit { .. }
     )
 }
 
