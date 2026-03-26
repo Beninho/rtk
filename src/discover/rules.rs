@@ -49,6 +49,8 @@ pub const PATTERNS: &[&str] = &[
     r"^(?:bundle\s+exec\s+)?(?:bin/)?(?:rake|rails)\s+test",
     r"^(?:bundle\s+exec\s+)?rspec(?:\s|$)",
     r"^(?:bundle\s+exec\s+)?rubocop(?:\s|$)",
+    // PHP tooling
+    r"^(?:php\s+)?(?:(?:vendor/bin|bin)/)?phpunit(?:\s|$)",
     // AWS CLI
     r"^aws\s+",
     // PostgreSQL
@@ -372,6 +374,21 @@ pub const RULES: &[RtkRule] = &[
         rtk_cmd: "rtk rubocop",
         rewrite_prefixes: &["bundle exec rubocop", "rubocop"],
         category: "Build",
+        savings_pct: 65.0,
+        subcmd_savings: &[],
+        subcmd_status: &[],
+    },
+    // PHP tooling
+    RtkRule {
+        rtk_cmd: "rtk phpunit",
+        rewrite_prefixes: &[
+            "php vendor/bin/phpunit",
+            "php bin/phpunit",
+            "vendor/bin/phpunit",
+            "bin/phpunit",
+            "phpunit",
+        ],
+        category: "Tests",
         savings_pct: 65.0,
         subcmd_savings: &[],
         subcmd_status: &[],
